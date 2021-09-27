@@ -1,5 +1,7 @@
 import axios from "axios";
-const baseURL = "http://localhost:8000/persons";
+const baseURL = "http://localhost:4000/api/persons";
+
+const getContacts = () => axios.get(baseURL);
 
 const addContact = (obj) => axios.post(baseURL, obj);
 
@@ -7,4 +9,4 @@ const deleteContact = (id) => axios.delete(`${baseURL}/${id}`);
 
 const updateContact = (id, obj) => axios.put(`${baseURL}/${id}`, obj);
 
-export { addContact, deleteContact, updateContact };
+export { getContacts, addContact, deleteContact, updateContact };

@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Add from "./Add";
 import Filter from "./Filter";
 import Notification from "./Notification";
 import Persons from "./Persons";
+import { getContacts } from "./services/persons";
 
 const App = () => {
   const [search, setSearch] = useState("");
@@ -11,9 +11,7 @@ const App = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/persons")
-      .then((data) => setPersons(data.data));
+    getContacts().then((data) => setPersons(data.data));
   }, []);
 
   return (
