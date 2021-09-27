@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = "http://localhost:4000/api/persons";
+const baseURL = "https://phonebook-fso-2021.herokuapp.com/api/persons";
 
 const getContacts = () => axios.get(baseURL);
 
