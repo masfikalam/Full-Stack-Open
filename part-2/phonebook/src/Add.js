@@ -11,28 +11,42 @@ const Add = ({ setMessage, persons, setPersons }) => {
     const available = persons.find((p) => p.name === newName);
     if (available) {
       const newObj = { ...available, number: newPhone };
-      updateContact(available.id, newObj).then((data) => {
-        const restAll = persons.filter((p) => p.id !== data.data.id);
-        setPersons([...restAll, data.data]);
+      updateContact(available.id, newObj)
+        .then((data) => {
+          const restAll = persons.filter((p) => p.id !== data.data.id);
+          setPersons([...restAll, data.data]);
 
-        setMessage(`${data.data.name} was updated`);
-        setTimeout(() => {
-          setMessage(null);
-        }, 3000);
-        setNewName("");
-        setNewPhone("");
-      });
+          setMessage(`${data.data.name} was updated`);
+          setTimeout(() => {
+            setMessage(null);
+          }, 3000);
+          setNewName("");
+          setNewPhone("");
+        })
+        .catch((err) => {
+          setMessage(err.response.data.error);
+          setTimeout(() => {
+            setMessage(null);
+          }, 3000);
+        });
     } else {
       const newObj = { name: newName, number: newPhone };
-      addContact(newObj).then((data) => {
-        setPersons([...persons, data.data]);
-        setMessage(`Added ${data.data.name}`);
-        setTimeout(() => {
-          setMessage(null);
-        }, 3000);
-        setNewName("");
-        setNewPhone("");
-      });
+      addContact(newObj)
+        .then((data) => {
+          setPersons([...persons, data.data]);
+          setMessage(`Added ${data.data.name}`);
+          setTimeout(() => {
+            setMessage(null);
+          }, 3000);
+          setNewName("");
+          setNewPhone("");
+        })
+        .catch((err) => {
+          setMessage(err.response.data.error);
+          setTimeout(() => {
+            setMessage(null);
+          }, 3000);
+        });
     }
   };
 
