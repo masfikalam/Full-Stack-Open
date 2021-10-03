@@ -1,5 +1,5 @@
 import deepFreeze from "deep-freeze";
-import rateReducer from "./rateReducer";
+import rateReducer from "../reducers/rateReducer";
 
 describe("unicafe reducer", () => {
   const initState = { good: 0, ok: 0, bad: 0 };
