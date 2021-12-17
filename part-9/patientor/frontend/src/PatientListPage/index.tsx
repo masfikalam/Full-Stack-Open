@@ -1,13 +1,13 @@
-import React from "react";
 import axios from "axios";
-import { Container, Table, Button } from "semantic-ui-react";
-
-import { PatientFormValues } from "../AddPatientModal/AddPatientForm";
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button, Container, Table } from "semantic-ui-react";
 import AddPatientModal from "../AddPatientModal";
-import { Patient } from "../types";
-import { apiBaseUrl } from "../constants";
+import { PatientFormValues } from "../AddPatientModal/AddPatientForm";
 import HealthRatingBar from "../components/HealthRatingBar";
-import { useStateValue } from "../state";
+import { apiBaseUrl } from "../constants";
+import { addPatient, useStateValue } from "../state";
+import { Patient } from "../types";
 
 const PatientListPage = () => {
   const [{ patients }, dispatch] = useStateValue();
@@ -28,11 +28,10 @@ const PatientListPage = () => {
         `${apiBaseUrl}/patients`,
         values
       );
-      dispatch({ type: "ADD_PATIENT", payload: newPatient });
+      dispatch(addPatient(newPatient));
       closeModal();
-    } catch (e) {
-      console.error(e.response?.data || 'Unknown Error');
-      setError(e.response?.data?.error || 'Unknown error');
+    } catch (e: unknown) {
+      setError("Unknown error");
     }
   };
 
@@ -53,7 +52,9 @@ const PatientListPage = () => {
         <Table.Body>
           {Object.values(patients).map((patient: Patient) => (
             <Table.Row key={patient.id}>
-              <Table.Cell>{patient.name}</Table.Cell>
+              <Table.Cell>
+                <Link to={`/patient/${patient.id}`}>{patient.name}</Link>
+              </Table.Cell>
               <Table.Cell>{patient.gender}</Table.Cell>
               <Table.Cell>{patient.occupation}</Table.Cell>
               <Table.Cell>

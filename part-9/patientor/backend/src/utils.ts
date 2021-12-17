@@ -32,6 +32,7 @@ const parseGender = (gender: unknown): Gender => {
 export const typeReq = (patient: any): newPatient => {
   const newEntry = {
     name: parseString(patient.name),
+    ssn: parseString(patient.ssn),
     dateOfBirth: parseDate(patient.dateOfBirth),
     gender: parseGender(patient.gender),
     occupation: parseString(patient.occupation),

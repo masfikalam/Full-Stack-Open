@@ -1,5 +1,5 @@
 import express from "express";
-import { Patient } from "../types";
+import { newPatient, Patient } from "../types";
 import { typeReq } from "../utils";
 import { addPatient, findById, getPatients } from "./../services/patients";
 
@@ -16,7 +16,7 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   try {
-    const typedEntry = typeReq(req.body);
+    const typedEntry: newPatient = typeReq(req.body);
     const patient: Patient = addPatient(typedEntry);
 
     res.json(patient);
