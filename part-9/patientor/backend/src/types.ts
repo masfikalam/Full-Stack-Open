@@ -26,17 +26,16 @@ interface BaseEntry {
   diagnosisCodes?: Array<Diagnosis["code"]>;
 }
 
-interface HealthCheckEntry extends BaseEntry {
-  type: "HealthCheck";
+export interface HealthCheckEntry extends BaseEntry {
   healthCheckRating: HealthCheckRating;
 }
 
-interface OccupationalHealthcareEntry extends BaseEntry {
+export interface OccupationalHealthcareEntry extends BaseEntry {
   employerName: string;
   sickLeave?: { startDate: string; endDate: string };
 }
 
-interface HospitalEntry extends BaseEntry {
+export interface HospitalEntry extends BaseEntry {
   discharge: { date: string; criteria: string };
 }
 
@@ -58,3 +57,5 @@ export interface Patient {
 export type publicPatient = Omit<Patient, "ssn" | "entries">;
 
 export type newPatient = Omit<Patient, "id" | "entries">;
+
+export type newEntry = Omit<Entry, "id">;

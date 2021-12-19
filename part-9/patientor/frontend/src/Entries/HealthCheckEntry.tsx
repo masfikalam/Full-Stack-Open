@@ -7,13 +7,9 @@ const HospitalEntry = ({ entry }: { entry: Entry }) => {
 
   return (
     <div>
-      <i>healthcare</i>
-      <ul>
-        <li>
-          rating: <Icon name="heart" /> x{newEntry.healthCheckRating}
-        </li>
-        <li>speacialist: {newEntry.specialist}</li>
-      </ul>
+      <i>
+        healthcare rating: <Icon name="heart" />x{newEntry.healthCheckRating}
+      </i>
     </div>
   );
 };

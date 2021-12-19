@@ -11,12 +11,10 @@ import { Patient } from "../types";
 
 const PatientListPage = () => {
   const [{ patients }, dispatch] = useStateValue();
-
   const [modalOpen, setModalOpen] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | undefined>();
 
   const openModal = (): void => setModalOpen(true);
-
   const closeModal = (): void => {
     setModalOpen(false);
     setError(undefined);
@@ -28,10 +26,11 @@ const PatientListPage = () => {
         `${apiBaseUrl}/patients`,
         values
       );
+
       dispatch(addPatient(newPatient));
       closeModal();
-    } catch (e: unknown) {
-      setError("Unknown error");
+    } catch (e: any) {
+      setError(e.response.data);
     }
   };
 
@@ -70,7 +69,9 @@ const PatientListPage = () => {
         error={error}
         onClose={closeModal}
       />
-      <Button onClick={() => openModal()}>Add New Patient</Button>
+      <Button color="orange" onClick={() => openModal()}>
+        Add New Patient
+      </Button>
     </div>
   );
 };

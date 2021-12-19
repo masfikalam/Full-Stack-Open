@@ -1,7 +1,13 @@
 import express from "express";
-import { newPatient, Patient } from "../types";
-import { typeReq } from "../utils";
-import { addPatient, findById, getPatients } from "./../services/patients";
+import { newEntry, newPatient } from "../types";
+import { typeEntry, typeReq } from "../utils";
+import {
+  addEntry,
+  addPatient,
+  findById,
+  getPatients,
+} from "./../services/patients";
+import { Patient } from "./../types";
 
 const router = express.Router();
 
@@ -16,12 +22,22 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   try {
-    const typedEntry: newPatient = typeReq(req.body);
-    const patient: Patient = addPatient(typedEntry);
+    const typedPatient: newPatient = typeReq(req.body);
+    const patient: Patient = addPatient(typedPatient);
 
     res.json(patient);
   } catch (e: unknown) {
-    e instanceof Error && console.log(e.message);
+    e instanceof Error && res.status(403).send(e.message);
+  }
+});
+
+router.post("/:id/entries", (req, res) => {
+  try {
+    const typedEntry: newEntry = typeEntry(req.body);
+    const patient = addEntry(req.params.id, typedEntry);
+    res.json(patient);
+  } catch (e: unknown) {
+    e instanceof Error && res.status(403).send(e.message);
   }
 });
 

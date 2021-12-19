@@ -33,8 +33,12 @@ const Entries = ({
       </h5>
 
       <p>{entry.description}</p>
+      <i>
+        specialist: <b>{entry.specialist}</b>
+      </i>
+      <br />
 
-      {entry.diagnosisCodes && (
+      {entry.diagnosisCodes?.length ? (
         <>
           <i>diagnoses -</i>
           <ul>
@@ -45,9 +49,12 @@ const Entries = ({
             ))}
           </ul>
         </>
+      ) : (
+        ""
       )}
-
       <EntryDetails entry={entry} />
+      <br />
+      <br />
     </div>
   );
 };
